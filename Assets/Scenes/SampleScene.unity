@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -318,7 +318,7 @@ GameObject:
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -336,17 +336,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camTrans: {fileID: 963194228}
   controller: {fileID: 1072865503}
+  stgf: 10
+  gravedad: 9.81
+  fuerzaSalto: 10
+  gCheck: {fileID: 1292902396}
+  gLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  radioGCheck: 0.2
+  piso: 0
   camSen: 10
   velMov: 10
   mIdz: 10
-  salto: 20
-  gravedad: -19
-  _groundCheck: {fileID: 1292902396}
-  _groundDistance: 0.4
-  _groundMask:
-    serializedVersion: 2
-    m_Bits: 64
-  _isGrounded: 0
 --- !u!136 &1072865499
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -419,7 +420,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1072865497}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.849, z: 0}
+  m_LocalPosition: {x: 0, y: 5.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -458,7 +459,7 @@ GameObject:
   m_Layer: 0
   m_Name: GroundCheck
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -470,7 +471,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1292902395}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.92, z: 0}
+  m_LocalPosition: {x: 0, y: -0.915, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -530,7 +531,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5cf6220ea423f32418ee8825ccd99c25, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -569,7 +570,7 @@ Transform:
   m_GameObject: {fileID: 1768188131}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

@@ -4,14 +4,25 @@ public class PlayerController : MonoBehaviour
 {
     //Añade movimiento de la camara y sensibilidad
     public Transform camTrans;
-
     public CharacterController controller;
+
+    //Gravedad
+    [Header("Gravedad y salto")]
+    public float stgf = 10;
+    public float gravedad = 9.81f;
+    public float fuerzaSalto = 10;
+    private float velocidadVertical;
+
+    //GroundCheck
+    [Header("Ground Check")]
+    public Transform gCheck;
+    public LayerMask gLayer;
+    public float radioGCheck;
+    public bool piso;
     
     //Configuraciones para el jugador
     public float camSen;
-
     public float velMov;
-
     public float mIdz; // Zona muerta
     
     //Controles de la camara
@@ -27,13 +38,6 @@ public class PlayerController : MonoBehaviour
     //Movimiento del jugador
     private Vector2 movTpuntoInicio;
     private Vector2 entradaMovimeinto;
-    public float salto = 20;
-    public float gravedad = -9.81f;
-    [SerializeField] private Transform _groundCheck = default;
-    [SerializeField] private float _groundDistance = 0.4f;
-    [SerializeField] private LayerMask _groundMask = default;
-    Vector3 _velocity = default;
-    public bool _isGrounded = default;
     
     void Start()
     {
@@ -46,15 +50,14 @@ public class PlayerController : MonoBehaviour
         mIdz = Mathf.Pow(Screen.height / mIdz, 2);
     }
 
+    private void FixedUpdate()
+    {
+        piso = Physics.CheckSphere(gCheck.position, radioGCheck, gLayer);
+    }
+
     private void Update()
     {
-        _isGrounded = Physics.CheckSphere(_groundCheck.position, _groundDistance, _groundMask);
-
-        if (_isGrounded && _velocity.y < 0)
-        {
-            _velocity.y = -2f;
-        }
-        
+        Gravedad();
         EntradasTouch();
 
         if (derDid != -1)
@@ -67,6 +70,11 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("movimiento");
             Movimiento();
+        } 
+
+        if (derDid != -1 && izqDid >= 1)
+        {
+            Salto();
         }
     }
 
@@ -95,12 +103,6 @@ public class PlayerController : MonoBehaviour
                         //Checamos el trackeo derecho
                         derDid = t.fingerId;
                         Debug.Log("trackeo derecho");
-                    }
-                    
-                    if (t.fingerId == 1 && _isGrounded)
-                    {
-                        _velocity.y = Mathf.Sqrt(salto * -2 * gravedad);
-                        Debug.Log("jumping");
                     }
 
                     break;
@@ -165,6 +167,30 @@ public class PlayerController : MonoBehaviour
 
         Vector2 dirMov = entradaMovimeinto.normalized * velMov * Time.deltaTime;
         controller.Move(transform.right * dirMov.x + transform.forward * dirMov.y);
+    }
 
+    void Gravedad()
+    {
+        //Calculo movimiento en vertical
+        if (piso && velocidadVertical <= 0)
+        {
+            velocidadVertical = -stgf * Time.deltaTime;
+        }
+        else
+        {
+            velocidadVertical -= gravedad * Time.deltaTime;
+        }
+
+        //Movimiento vertical
+        Vector3 movimientoVertical = transform.up * velocidadVertical;
+        controller.Move(movimientoVertical * Time.deltaTime);
+    }
+
+    public void Salto()
+    {
+        if (piso)
+        {
+            velocidadVertical = fuerzaSalto;
+        }
     }
 }
