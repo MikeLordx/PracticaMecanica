@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
             Movimiento();
         } 
 
-        if (derDid != -1 && izqDid >= 1)
+        if (izqDid >= 1)
         {
             Salto();
         }
